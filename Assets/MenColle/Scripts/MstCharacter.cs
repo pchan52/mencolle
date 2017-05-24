@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.SerializableAttribute]
-public class MstCharacter : MonoBehaviour {
+public class MstCharacter {
+	//Monobehaviour継承しているとエラー マッピング出来ない
 
 	[SerializeField]
 	private int
