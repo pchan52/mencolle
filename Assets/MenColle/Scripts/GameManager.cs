@@ -6,11 +6,7 @@ public class GameManager
 {
 	private void Start()
 	{
-		MasterDataManager.instance.LoadData(() => 
-			{
-				var purchaseView = GameObject.FindObjectOfType<MentorPurchaseView>();
-				purchaseView.SetCells();
-			});
+		MasterDataManager.instance.LoadData ();
 	}
 
 	public static void Log (object log)
