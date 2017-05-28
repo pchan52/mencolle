@@ -22,7 +22,9 @@ public class MentorPurchaseCell : MonoBehaviour
 		characterData = data;
 		nameLabel.text = data.Name;
 		rarityLabel.text = "";
-		for (int i = 0; i < data.Rarity; i++) { rarityLabel.text += "★"; }
+		for (int i = 0; i < data.Rarity; i++) {
+			rarityLabel.text += "★"; 
+		}
 		flavorTextLabel.text = data.FlavorText;
 		productivityLabel.text = "生産性(lv.1) : " + data.LowerEnergy;
 		costLabel.text = string.Format("¥{0:#,0}", data.InitialCost);
