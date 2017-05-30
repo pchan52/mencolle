@@ -17,14 +17,14 @@ public class MstCharacter {
 	[SerializeField]
 	private string 
 	_name,
-	_imageId,
+	_imageID,
 	_flavorText;
 
 	//dataを受け取って値を変数に格納
 	public void SetFromCSV(string[] data){
 		_id = int.Parse (data [0]);
 		_name = data [1];
-		_imageId = data [2];
+		_imageID = data [2];
 		_flavorText = data [3];
 		_rarity = int.Parse (data [4]);
 		_maxLebel = int.Parse (data [5]);
@@ -43,7 +43,7 @@ public class MstCharacter {
 	public int UpperEnergy  { get{ return _upperEnergy; } }
 	public int InitialCost  { get{ return _initialCost; } }
 	public string Name { get{ return _name; } }
-	public string ImageId { get{ return _imageId; } }
+	public string ImageID { get{ return _imageID; } }
 	public string FlavorText { get{ return _flavorText; } }
 
 }
