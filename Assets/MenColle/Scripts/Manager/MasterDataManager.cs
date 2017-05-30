@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 
 	[SerializeField] 
-	private List<MstCharacter> characterTable = new List<MstCharacter>();
-	public List<MstCharacter> CharacterTable { get { return characterTable; } }
+	private List<MstCharacter> _characterTable = new List<MstCharacter>();
+	public List<MstCharacter> CharacterTable { get { return _characterTable; } }
 
 	const string csvurl = "https://docs.google.com/spreadsheets/d/1mYUT577B26EFcw9ifaXWbMMoUHvbkR_NyHYdh3dc94k/pub?gid=605974578&single=true&output=csv";
 
@@ -22,7 +22,7 @@ public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 				{
 					var data = new MstCharacter();
 					data.SetFromCSV( GetRaw(csv, i) );
-					characterTable.Add(data);
+					_characterTable.Add(data);
 				}
 				var purchaseView = GameObject.FindObjectOfType<MentorPurchaseView>();
 				purchaseView.SetCells();
@@ -37,5 +37,10 @@ public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 			data[i] = csv[i,row];
 		}
 		return data;
+	}
+
+	public MstCharacter GetCharacterById(int id)
+	{
+		return _characterTable.Find(c => c.ID == id);
 	}
 }

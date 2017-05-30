@@ -18,6 +18,7 @@ public class MentorPurchaseCell : MonoBehaviour
 
 	public void SetValue(MstCharacter data)
 	{
+		print(data.ImageID);
 		_iconImage.sprite = Resources.Load<Sprite>("Face/" + data.ImageID);
 		_characterData = data;
 		_nameLabel.text = data.Name;
