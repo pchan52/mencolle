@@ -3,30 +3,30 @@ using UnityEngine.UI;
 
 public class MentorPurchaseCell : MonoBehaviour
 {
-	[SerializeField] private Image iconImage;
+	[SerializeField] private Image _iconImage;
 	[SerializeField] private Text
-	nameLabel,
-	rarityLabel,
-	flavorTextLabel,
-	productivityLabel,
-	costLabel;
+	_nameLabel,
+	_rarityLabel,
+	_flavorTextLabel,
+	_productivityLabel,
+	_costLabel;
 
-	[SerializeField] private Button purchaseButton;
+	[SerializeField] private Button _purchaseButton;
 
-	private bool isSold = false;
-	private MstCharacter characterData;
+	private bool _isSold = false;
+	private MstCharacter _characterData;
 
 	public void SetValue(MstCharacter data)
 	{
-		iconImage.sprite = Resources.Load<Sprite>("Face/" + data.ImageId);
-		characterData = data;
-		nameLabel.text = data.Name;
-		rarityLabel.text = "";
+		_iconImage.sprite = Resources.Load<Sprite>("Face/" + data.ImageId);
+		_characterData = data;
+		_nameLabel.text = data.Name;
+		_rarityLabel.text = "";
 		for (int i = 0; i < data.Rarity; i++) {
-			rarityLabel.text += "★"; 
+			_rarityLabel.text += "★"; 
 		}
-		flavorTextLabel.text = data.FlavorText;
-		productivityLabel.text = "生産性(lv.1) : " + data.LowerEnergy;
-		costLabel.text = string.Format("¥{0:#,0}", data.InitialCost);
+		_flavorTextLabel.text = data.FlavorText;
+		_productivityLabel.text = "生産性(lv.1) : " + data.LowerEnergy;
+		_costLabel.text = string.Format("¥{0:#,0}", data.InitialCost);
 	}
 }

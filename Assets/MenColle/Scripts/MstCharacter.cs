@@ -6,44 +6,44 @@ public class MstCharacter {
 
 	[SerializeField]
 	private int
-	id,
-	rarity,
-	maxLebel,
-	growthType,
-	lowerEnergy,
-	upperEnergy,
-	initialCost;
+	_id,
+	_rarity,
+	_maxLebel,
+	_growthType,
+	_lowerEnergy,
+	_upperEnergy,
+	_initialCost;
 
 	[SerializeField]
 	private string 
-	name,
-	imageId,
-	flavorText;
+	_name,
+	_imageId,
+	_flavorText;
 
 	//dataを受け取って値を変数に格納
 	public void SetFromCSV(string[] data){
-		id = int.Parse (data [0]);
-		name = data [1];
-		imageId = data [2];
-		flavorText = data [3];
-		rarity = int.Parse (data [4]);
-		maxLebel = int.Parse (data [5]);
-		growthType = int.Parse (data [6]);
-		lowerEnergy = int.Parse (data [7]);
-		upperEnergy = int.Parse (data [8]);
-		initialCost = int.Parse (data [9]);
+		_id = int.Parse (data [0]);
+		_name = data [1];
+		_imageId = data [2];
+		_flavorText = data [3];
+		_rarity = int.Parse (data [4]);
+		_maxLebel = int.Parse (data [5]);
+		_growthType = int.Parse (data [6]);
+		_lowerEnergy = int.Parse (data [7]);
+		_upperEnergy = int.Parse (data [8]);
+		_initialCost = int.Parse (data [9]);
 	}
 
 	//読み取り専用のプロパティにする
-	public int ID       { get{ return id; } }
-	public int Rarity   { get{ return rarity; } }
-	public int MaxLevel { get{ return maxLebel; } }
-	public int GrowthType   { get{ return growthType; } }
-	public int LowerEnergy  { get{ return lowerEnergy; } }
-	public int UpperEnergy  { get{ return upperEnergy; } }
-	public int InitialCost  { get{ return initialCost; } }
-	public string Name { get{ return name; } }
-	public string ImageId { get{ return imageId; } }
-	public string FlavorText { get{ return flavorText; } }
+	public int ID       { get{ return _id; } }
+	public int Rarity   { get{ return _rarity; } }
+	public int MaxLevel { get{ return _maxLebel; } }
+	public int GrowthType   { get{ return _growthType; } }
+	public int LowerEnergy  { get{ return _lowerEnergy; } }
+	public int UpperEnergy  { get{ return _upperEnergy; } }
+	public int InitialCost  { get{ return _initialCost; } }
+	public string Name { get{ return _name; } }
+	public string ImageId { get{ return _imageId; } }
+	public string FlavorText { get{ return _flavorText; } }
 
 }
