@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 [Serializable]
 public class User
 {
 
-	[SerializeField] private int _money;
+	[SerializeField] private IntReactiveProperty _money;
 	[SerializeField] private List<Character> _characters;
 
-	public int Money {
+	public IntReactiveProperty Money {
 		get { return _money; }
 	}
 
@@ -24,7 +25,7 @@ public class User
 		var uniqueId = (Characters.Count == 0) ? 1 : _characters[_characters.Count - 1].UniqueID + 1;
 		var chara = new Character(uniqueId, data);
 		_characters.Add(chara);
-		_money -= data.InitialCost;
+		_money.Value -= data.InitialCost;
 		return chara;
 	}
 	
@@ -40,6 +41,6 @@ public class User
 	
 	public void AddMoney(int cost)
 	{
-		_money += cost;
+		_money.Value += cost;
 	}
 }
