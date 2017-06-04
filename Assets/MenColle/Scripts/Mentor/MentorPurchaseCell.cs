@@ -36,7 +36,7 @@ public class MentorPurchaseCell : MonoBehaviour
 		var ch = user.Characters.Find(c => c.MasterID == data.ID);
 		_isSold = (ch == null) ? false : true;
 		if (_isSold) SoldView();
-		if (!_characterData.PurchaseAvailable(user.Money)) buttonGroup.alpha = 0.5f;
+		if (!_characterData.PurchaseAvailable(user.Money)) buttonGroup.alpha = 1f;
 		_purchaseButton.onClick.AddListener(() =>
 		{
 			if (_isSold) return;
