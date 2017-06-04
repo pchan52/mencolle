@@ -24,7 +24,14 @@ public class Character {
 	public int Power
 	{
 		get{
-			return 1;
+			int power = 
+				Master.LowerEnergy 
+				+ ( 
+					(_level - 1) 
+					* (Master.UpperEnergy - Master.LowerEnergy) 
+					/ (Master.MaxLevel - 1) 
+				);
+			return power;
 		}
 	}
 
