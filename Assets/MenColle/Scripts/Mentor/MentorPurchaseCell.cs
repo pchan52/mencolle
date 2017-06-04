@@ -12,6 +12,8 @@ public class MentorPurchaseCell : MonoBehaviour
 	_costLabel;
 
 	[SerializeField] private Button _purchaseButton;
+	
+	[SerializeField] private CanvasGroup buttonGroup;
 
 	private bool _isSold = false;
 	private MstCharacter _characterData;
@@ -29,5 +31,26 @@ public class MentorPurchaseCell : MonoBehaviour
 		_flavorTextLabel.text = data.FlavorText;
 		_productivityLabel.text = "生産性(lv.1) : " + data.LowerEnergy;
 		_costLabel.text = string.Format("¥{0:#,0}", data.InitialCost);
+
+		var user = GameManager.instance.User;
+		var ch = user.Characters.Find(c => c.MasterID == data.ID);
+		_isSold = (ch == null) ? false : true;
+		if (_isSold) SoldView();
+		if (!_characterData.PurchaseAvailable(user.Money)) buttonGroup.alpha = 0.5f;
+		_purchaseButton.onClick.AddListener(() =>
+		{
+			if (_isSold) return;
+			if (!_characterData.PurchaseAvailable(user.Money)) return;
+			_isSold = true;
+			SoldView();
+			var chara = user.NewCharacter(_characterData);
+			PortrateUIManager.instance.MentorTrainingView.AddCharacter(chara);
+		});
+	}
+	
+	private void SoldView()
+	{
+		buttonGroup.alpha = 0.5f;
+		_costLabel.text = "sold out";	
 	}
 }
