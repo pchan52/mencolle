@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UniRx;
 
 public class GameManager
 	: SingletonMonoBehaviour<GameManager>
@@ -15,6 +16,8 @@ public class GameManager
 			userData = JsonUtility.FromJson<User>(PlayerPrefs.GetString(SaveKey));
 		}
 		MasterDataManager.instance.LoadData ();
+		
+		userData.Money.Subscribe(_ => { Save(); });
 	}
 
 	public void Save()

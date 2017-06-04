@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class MentorPurchaseCell : MonoBehaviour
 {
@@ -36,15 +37,21 @@ public class MentorPurchaseCell : MonoBehaviour
 		var ch = user.Characters.Find(c => c.MasterID == data.ID);
 		_isSold = (ch == null) ? false : true;
 		if (_isSold) SoldView();
-		if (!_characterData.PurchaseAvailable(user.Money)) buttonGroup.alpha = 1f;
+		if (!_characterData.PurchaseAvailable(user.Money.Value)) buttonGroup.alpha = 1f;
 		_purchaseButton.onClick.AddListener(() =>
 		{
 			if (_isSold) return;
-			if (!_characterData.PurchaseAvailable(user.Money)) return;
+			if (!_characterData.PurchaseAvailable(user.Money.Value)) return;
 			_isSold = true;
 			SoldView();
 			var chara = user.NewCharacter(_characterData);
 			PortrateUIManager.instance.MentorTrainingView.AddCharacter(chara);
+		});
+		
+		user.Money.Subscribe(value => {
+			if (_isSold) return;
+			if (value < data.InitialCost) buttonGroup.alpha = 0.5f;
+			else buttonGroup.alpha = 1.0f;
 		});
 	}
 	
