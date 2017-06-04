@@ -24,8 +24,8 @@ public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 					data.SetFromCSV( GetRaw(csv, i) );
 					_characterTable.Add(data);
 				}
-				var purchaseView = GameObject.FindObjectOfType<MentorPurchaseView>();
-				purchaseView.SetCells();
+//				var purchaseView = GameObject.FindObjectOfType<MentorPurchaseView>();
+//				purchaseView.SetCells();
 				PortrateUIManager.instance.Setup();
 			}
 		);

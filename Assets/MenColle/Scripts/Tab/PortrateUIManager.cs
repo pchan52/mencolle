@@ -12,7 +12,13 @@ public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
 	[SerializeField] private Image _mainPanel;
 	public MentorPurchaseView MentorPurchaseView { get { return _mentorPurchaseView; } }
 	public MentorTrainingView MentorTrainingView { get { return _mentorTrainingView; } }
+	public Transform UserInfoPanel {
+		get { return _userInfoPanel; }
+	}
 
+	public Image MainPanel {
+		get { return _mainPanel; }
+	}
 
 	[SerializeField] private Text
 		_moneyLabel,
