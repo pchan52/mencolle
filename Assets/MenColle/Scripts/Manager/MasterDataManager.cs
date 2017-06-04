@@ -26,6 +26,7 @@ public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 				}
 				var purchaseView = GameObject.FindObjectOfType<MentorPurchaseView>();
 				purchaseView.SetCells();
+				PortrateUIManager.instance.Setup();
 			}
 		);
 	}
