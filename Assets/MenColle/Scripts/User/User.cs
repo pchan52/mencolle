@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -26,5 +26,20 @@ public class User
 		_characters.Add(chara);
 		_money -= data.InitialCost;
 		return chara;
+	}
+	
+	// 追記部分
+	public int ProductivityPerTap
+	{
+		get 
+		{ 
+			int sum = _characters.Sum(c => c.Power);
+			return (sum == 0) ? 1 : sum; 
+		}
+	}
+	
+	public void AddMoney(int cost)
+	{
+		_money += cost;
 	}
 }
