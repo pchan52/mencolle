@@ -39,4 +39,9 @@ public class Character {
 	{
 		get { return (_level >= Master.MaxLevel) ? true : false; }
 	}
+
+	public void LevelUp()
+	{
+		_level += 1;
+	}
 }
