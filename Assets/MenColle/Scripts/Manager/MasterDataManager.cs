@@ -30,6 +30,11 @@ public class MasterDataManager : SingletonMonoBehaviour<MasterDataManager> {
 			}
 		);
 	}
+	
+	public int GetConsumptionMoney (Character data)
+	{
+		return (int)(data.Master.InitialCost * Mathf.Pow(1.1f, data.Level-1));
+	}
 
 
 	private string[] GetRaw(string[,] csv, int row){

@@ -39,6 +39,11 @@ public class User
 		}
 	}
 	
+	public void ConsumptionLevelUpCost(int cost)
+	{
+		_money.Value -= cost;
+	}
+	
 	public void AddMoney(int cost)
 	{
 		_money.Value += cost;
