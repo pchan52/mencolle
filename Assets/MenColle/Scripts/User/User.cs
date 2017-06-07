@@ -11,8 +11,8 @@ public class User
 	[SerializeField] private IntReactiveProperty _money;
 	[SerializeField] private List<Character> _characters;
 
-	public IntReactiveProperty Money {
-		get { return _money; }
+	public ReadOnlyReactiveProperty<int> Money {
+		get { return _money.ToReadOnlyReactiveProperty(); }
 	}
 
 	public List<Character> Characters
