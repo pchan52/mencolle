@@ -26,7 +26,7 @@ public class Character {
 	public int Power
 	{
 		get{
-			int power;
+			int power = 1;
 			switch (Master.GrowthType)
 			{
 				case 1:
