@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 [System.SerializableAttribute]
 public class Character {
@@ -24,12 +26,39 @@ public class Character {
 	public int Power
 	{
 		get{
-			return 1;
+			int power = 1;
+			switch (Master.GrowthType)
+			{
+				case 1:
+					power = (int) (-(Master.UpperEnergy - Master.LowerEnergy) *
+					               Math.Pow((_level - Master.MaxLevel) / (1 - Master.MaxLevel), 2) + Master.UpperEnergy);
+					break;
+				case 2:
+					power = 
+						Master.LowerEnergy 
+						+ ( 
+							(_level - 1) 
+							* (Master.UpperEnergy - Master.LowerEnergy) 
+							/ (Master.MaxLevel - 1) 
+						);
+					break;
+				case 3:
+					power = (int) ((Master.UpperEnergy - Master.LowerEnergy) *
+					               Math.Pow((_level - Master.MaxLevel) / (Master.MaxLevel-1), 2) + Master.LowerEnergy);
+					break;
+			}
+		
+			return power;
 		}
 	}
 
 	public bool IsLevelMax
 	{
 		get { return (_level >= Master.MaxLevel) ? true : false; }
+	}
+
+	public void LevelUp()
+	{
+		_level += 1;
 	}
 }

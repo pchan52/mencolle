@@ -46,4 +46,9 @@ public class MstCharacter {
 	public string ImageID { get{ return _imageID; } }
 	public string FlavorText { get{ return _flavorText; } }
 
+	public bool PurchaseAvailable(int currentMoney)
+	{
+		return (currentMoney < InitialCost) ? false : true;
+	}
+
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UniRx;
 
 
 public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
@@ -20,6 +21,7 @@ public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
 		get { return _mainPanel; }
 	}
 
+	[SerializeField] private Button _workButton, _dataClearButton;
 	[SerializeField] private Text
 		_moneyLabel,
 		_autoWorkLabel,
@@ -27,10 +29,12 @@ public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
 		_productivityLabel;
 	
 	[SerializeField] private Const.View
-		currentView = Const.View.Close,
-		lastView = Const.View.Purchase;
+		_currentView = Const.View.Close,
+		_lastView = Const.View.Purchase;
 	
-	[SerializeField] private Button openButton;
+	private static User User { get { return GameManager.instance.User; } }
+	
+//	[SerializeField] private Button openButton;
 	private bool isMoving = false;
 
 	public void Setup()
@@ -38,18 +42,43 @@ public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
 		_mentorPurchaseView.SetCells();
 		_mentorTrainingView.SetCells();
 
-		openButton.onClick.AddListener(() =>
+//		openButton.onClick.AddListener(() =>
+//		{
+//			openButton.gameObject.SetActive(false);
+//			ChangeView(lastView);
+//		});
+
+		UpdateView();
+		
+		_workButton.onClick.AddListener(() =>
 		{
-			openButton.gameObject.SetActive(false);
-			ChangeView(lastView);
+			var power = User.Characters.Sum(c => c.Power);
+			if (power == 0) power = 1;
+			User.AddMoney(power);
+			UpdateView();
 		});
+		
+		_dataClearButton.onClick.AddListener(() => 
+		{
+			PlayerPrefs.DeleteAll();
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+		});
+
+		User.Money.Subscribe(_ => { UpdateView(); });
+	}
+	
+	public void UpdateView()
+	{
+		_moneyLabel.text = string.Format("¥{0:#,0}", User.Money);
+		_employeesCountLabel.text = string.Format("{0:#,0}人", User.Characters.Count);
+		_productivityLabel.text = string.Format("¥{0:#,0}", User.ProductivityPerTap);
 	}
 
 	public void ChangeView(Const.View nextView)
 	{
-		if (currentView == nextView) return;
-		lastView = currentView;
-		currentView = nextView;
+		if (_currentView == nextView) return;
+		_lastView = _currentView;
+		_currentView = nextView;
 		isMoving = true;
 		switch (nextView)
 		{
@@ -78,7 +107,7 @@ public class PortrateUIManager : SingletonMonoBehaviour<PortrateUIManager>
 	
 	private void Update () {
 		if(!isMoving) return;
-		var target = (currentView == Const.View.Close) ? _closePoint : _openPoint;
+		var target = (_currentView == Const.View.Close) ? _closePoint : _openPoint;
 		_userInfoPanel.position = target.transform.position;
 	}
 }

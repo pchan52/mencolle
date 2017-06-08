@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class MentorTrainingCell : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class MentorTrainingCell : MonoBehaviour
 	[SerializeField] private CanvasGroup _levelUpButtonGroup;
 
 	private Character _characterdata;
+	
+	private User User { get { return GameManager.instance.User; } }
 
 	public void SetValue(Character data)
 	{
@@ -37,11 +40,37 @@ public class MentorTrainingCell : MonoBehaviour
 		
 		//現キャラクターの情報
 		UpdateValue();
+		
+		_levelUpButton.onClick.AddListener(() =>
+		{
+			// 追記
+			var cost = CulcLevelUpCost();
+			if (User.Money.Value < cost) return;
+			if (_characterdata.IsLevelMax) return;
+			_characterdata.LevelUp();
+			User.ConsumptionLevelUpCost(cost);
+			UpdateValue();
+		});
+		
+		_disctiptionButton.onClick.AddListener(() => {
+			// Descriptionを表示させるところを作ってないのでまだ
+		});
+
+		_vrButton.onClick.AddListener(() => {
+			// VRViewを作ってないのでまだ
+		});
+
+		// 所持金のIntReactiveProperty化で対応しておく予定の部分
+		if (User.Money.Value < CulcLevelUpCost()) _levelUpButtonGroup.alpha = 0.5f;
+		User.Money.Subscribe(value => {
+			if (_characterdata.IsLevelMax) return;
+			UpdateValue();
+		});
 	}
 
 	private int CulcLevelUpCost()
 	{
-		return 100;
+		return MasterDataManager.instance.GetConsumptionMoney (_characterdata);
 	}
 
 	public void UpdateValue()
@@ -51,7 +80,7 @@ public class MentorTrainingCell : MonoBehaviour
 		_productivityLabel.text = "生産性 : ¥" + _characterdata.Power + "/tap";
 		var cost = CulcLevelUpCost();
 		_costLabel.text = "¥" + cost;
-		if (true)
+		if (User.Money.Value < cost)
 		{
 			_levelUpButtonGroup.alpha = 0.5f;
 		}else
